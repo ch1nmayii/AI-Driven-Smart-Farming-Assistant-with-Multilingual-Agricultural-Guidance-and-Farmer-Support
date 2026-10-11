@@ -1,0 +1,68 @@
+[
+  {
+    "id": "kb_wheat_rust",
+    "category": "pests",
+    "crop": "wheat",
+    "keywords": ["गेहूं", "पीला रतुआ", "rust", "yellow rust", "ಗೋಧಿ", "ತುಕ್ಕು ರೋಗ", "fungicide", "फफूंद"],
+    "title": "Yellow Rust in Wheat (गेहूं का पीला रतुआ / ಗೋಧಿ ಹಳದಿ ತುಕ್ಕು)",
+    "content_en": "Yellow rust in wheat is caused by Pucciniopsis striiformis. Symptoms: Yellow stripes of uredinia on leaves. Control: Spray Propiconazole 25% EC (Tilt) @ 1 ml/litre of water or Tebuconazole 25.9% EC @ 1 ml/litre immediately upon early symptoms. Repeat after 15 days if necessary.",
+    "content_hi": "गेहूं में पीला रतुआ (येलो रस्ट) फफूंद से होता है। पत्तियों पर पीले रंग की धारियां या पाउडर दिखाई देता है। नियंत्रण: लक्षण दिखते ही प्रोपिकोनाज़ोल 25% EC (टिल्ट) 1 मिली प्रति लीटर पानी या टेबुकोनाज़ोल 25.9% EC 1 मिली प्रति लीटर पानी में मिलाकर तुरंत छिड़काव करें। 15 दिन बाद आवश्यकतानुसार दोबारा छिड़कें।",
+    "content_kn": "ಗೋಧಿಯಲ್ಲಿ ಹಳದಿ ತುಕ್ಕು ರೋಗವು ಶಿಲೀಂಧ್ರದಿಂದ ಬರುತ್ತದೆ. ಎಲೆಗಳ ಮೇಲೆ ಹಳದಿ ಬಣ್ಣದ ಪಟ್ಟೆಗಳು ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತವೆ. ನಿಯಂತ್ರಣ: ಲಕ್ಷಣಗಳು ಕಂಡ ಕೂಡಲೇ ಪ್ರೊಪಿಕೊನಜೋಲ್ 25% EC (ಟಿಲ್ಟ್) 1 ಮಿ.ಲೀ/ಲೀಟರ್ ನೀರಿಗೆ ಅಥವಾ ಟೆಬುಕೊನಜೋಲ್ 1 ಮಿ.ಲೀ/ಲೀಟರ್ ನೀರಿಗೆ ಬೆರೆಸಿ ಸಿಂಪಡಿಸಿ. ಅಗತ್ಯವಿದ್ದರೆ 15 ದಿನಗಳ ನಂತರ ಪುನರಾವರ್ತಿಸಿ.",
+    "source": "ICAR-Indian Institute of Wheat & Barley Research"
+  },
+  {
+    "id": "kb_pm_kisan",
+    "category": "schemes",
+    "crop": "all",
+    "keywords": ["pm kisan", "पीएम किसान", "सम्मान निधि", "scheme", "ಯೋಜನೆ", "ಪಿಎಂ ಕಿಸಾನ್", "subsidy", "अनुदान"],
+    "title": "PM-KISAN Samman Nidhi Scheme (पीएम किसान सम्मान निधि / ಪಿಎಂ ಕಿಸಾನ್)",
+    "content_en": "Under PM-KISAN, eligible small and marginal farmer families receive income support of ₹6,000 per year in three equal installments of ₹2,000 every four months directly into their bank accounts via DBT. Farmers must have landholding records updated, Aadhaar-linked bank accounts, and active e-KYC completed on pmkisan.gov.in.",
+    "content_hi": "प्रधानमंत्री किसान सम्मान निधि (PM-KISAN) के तहत पात्र किसान परिवारों को प्रति वर्ष ₹6,000 की वित्तीय सहायता दी जाती है, जो ₹2,000 की तीन बराबर किस्तों में सीधे बैंक खाते में (DBT) ट्रांसफर होती है। इसके लिए आधार कार्ड, बैंक खाता आधार से लिंक और ई-केवाईसी (e-KYC) अनिवार्य है।",
+    "content_kn": "ಪ್ರಧಾನ ಮಂತ್ರಿ ಕಿಸಾನ್ ಸಮ್ಮಾನ್ ನಿಧಿ (ಪಿಎಂ ಕಿಸಾನ್) ಯೋಜನೆಯಡಿ ಅರ್ಹ ರೈತ ಕುಟುಂಬಗಳಿಗೆ ವರ್ಷಕ್ಕೆ ₹6,000 ಆರ್ಥಿಕ ನೆರವು ಸಿಗುತ್ತದೆ. ಇದು ₹2,000 ನಂತೆ ಮೂರು ಕಂತುಗಳಲ್ಲಿ ನೇರವಾಗಿ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಜಮೆಯಾಗುತ್ತದೆ. ಇದಕ್ಕೆ ಆಧಾರ್ ಲಿಂಕ್ ಮತ್ತು ಇ-ಕೆವೈಸಿ ಕಡ್ಡಾಯವಾಗಿದೆ.",
+    "source": "Ministry of Agriculture & Farmers Welfare, GoI"
+  },
+  {
+    "id": "kb_rice_stem_borer",
+    "category": "pests",
+    "crop": "rice",
+    "keywords": ["धान", "तने का कीड़ा", "stem borer", "rice", "ಭತ್ತ", "ಕಾಂಡ ಕೊರೆಯುವ ಹುಳು", "dead heart"],
+    "title": "Rice Yellow Stem Borer (धान का तना छेदक / ಭತ್ತದ ಕಾಂಡ ಕೊರೆಯುವ ಹುಳು)",
+    "content_en": "Yellow stem borer larvae bore into rice stems causing 'dead heart' at vegetative stage and 'white ear' at flowering stage. Management: Install pheromone traps @ 8-10 traps/ha. Apply Cartap Hydrochloride 4G @ 10 kg/acre or spray Chlorantraniliprole 18.5% SC @ 60 ml/acre in 200 litres of water.",
+    "content_hi": "धान में तना छेदक कीड़ा तने के अंदर घुसकर फसल को सुखा देता है, जिससे 'डेड हार्ट' और बालियां आने पर 'सफेद बाली' बन जाती है। नियंत्रण: 8-10 फेरोमोन ट्रैप प्रति हेक्टेयर लगाएं। खेत में कार्तप हाइड्रोक्लोराइड 4G 10 किग्रा/एकड़ डालें या क्लोरेंट्रानिलिप्रोल (कोराजन) 18.5% SC 60 मिली प्रति एकड़ 200 लीटर पानी में छिड़कें।",
+    "content_kn": "ಭತ್ತದಲ್ಲಿ ಕಾಂಡ ಕೊರೆಯುವ ಹುಳು ಕಾಂಡವನ್ನು ಕೊರೆದು ಸಸ್ಯವನ್ನು ಒಣಗಿಸುತ್ತದೆ. ನಿಯಂತ್ರಣ: ಎಕರೆಗೆ ಕಾರ್ತಾಪ್ ಹೈಡ್ರೋಕ್ಲೋರೈಡ್ 4G 10 ಕೆಜಿ ಬಳಸಿ ಅಥವಾ ಕ್ಲೋರಾಂಟ್ರಾನಿಲಿಪ್ರೋಲ್ (ಕೊರಾಜೆನ್) 60 ಮಿ.ಲೀ/ಎಕರೆಗೆ 200 ಲೀಟರ್ ನೀರಿನಲ್ಲಿ ಬೆರೆಸಿ ಸಿಂಪಡಿಸಿ.",
+    "source": "ICAR-National Rice Research Institute (NRRI)"
+  },
+  {
+    "id": "kb_soil_health_dap_urea",
+    "category": "soil",
+    "crop": "all",
+    "keywords": ["यूरिया", "डीएपी", "खाद", "fertilizer", "soil", "NPK", "ರಸಗೊಬ್ಬರ", "ಯೂರಿಯಾ", "ಡಿಎಪಿ", "ಮಣ್ಣು"],
+    "title": "Balanced Fertilizer Application (उर्वरक एवं मृदा स्वास्थ्य / ಸಮತೋಲಿತ ರಸಗೊಬ್ಬರ ಬಳಕೆ)",
+    "content_en": "Excessive urea application degrades soil structure and attracts pest attacks. Always base fertilizer application on Soil Health Card recommendations. Standard N:P:K ratio for cereals is 4:2:1. Apply full dose of Phosphorus (DAP/SSP) and Potash as basal at sowing, and split Nitrogen (Urea) into 2-3 top dressings with neem-coated urea.",
+    "content_hi": "फसल में केवल यूरिया डालने से मिट्टी की सेहत खराब होती है और कीटों का प्रकोप बढ़ता है। मिट्टी स्वास्थ्य कार्ड (Soil Health Card) की जांच अनुसार ही खाद डालें। अनाज फसलों के लिए N:P:K का आदर्श अनुपात 4:2:1 है। बुवाई के समय DAP और पोटाश की पूरी मात्रा दें, और यूरिया को 2 से 3 बार में सिंचाई के बाद दें। नीम लेपित यूरिया का उपयोग करें।",
+    "content_kn": "ಕೇವಲ ಯೂರಿಯಾ ಬಳಸುವುದರಿಂದ ಮಣ್ಣಿನ ಆರೋಗ್ಯ ಹಾಳಾಗುತ್ತದೆ ಮತ್ತು ಕೀಟಗಳ ಬಾಧೆ ಹೆಚ್ಚಾಗುತ್ತದೆ. ಮಣ್ಣು ಪರೀಕ್ಷೆ ವರದಿಯಂತೆ ಗೊಬ್ಬರ ಹಾಕಿ. ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ DAP ಮತ್ತು ಪೊಟ್ಯಾಷ್ ಪೂರ್ಣ ಪ್ರಮಾಣದಲ್ಲಿ ನೀಡಿ, ಯೂರಿಯಾವನ್ನು 2-3 ಹಂತಗಳಲ್ಲಿ ನೀಡಿ.",
+    "source": "ICAR-Indian Institute of Soil Science"
+  },
+  {
+    "id": "kb_tomato_blight",
+    "category": "pests",
+    "crop": "tomato",
+    "keywords": ["टमाटर", "झुलसा", "blight", "tomato", "ಟೊಮ್ಯಾಟೊ", "ಕರಗು ರೋಗ", "ಅಂಗಮಾರಿ"],
+    "title": "Late Blight of Tomato (टमाटर का पछेती झुलसा / ಟೊಮ್ಯಾಟೊ ತಡವಾದ ಅಂಗಮಾರಿ)",
+    "content_en": "Late blight caused by Phytophthora infestans leads to water-soaked brown lesions on leaves and decaying fruits during cool, humid weather. Control: Spray Mancozeb 75% WP @ 2.5 g/litre as preventive, or Cymoxanil + Mancozeb (Curzate) @ 3 g/litre or Metalaxyl + Mancozeb (Ridomil Gold) @ 2.5 g/litre upon symptom onset.",
+    "content_hi": "टमाटर में पछेती झुलसा रोग में पत्तियों पर पानी से भीगे हुए भूरे-काले धब्बे बनते हैं और फल सड़ने लगते हैं। नियंत्रण: बचाव के लिए मैंकोजेब 75% WP 2.5 ग्राम प्रति लीटर पानी में छिड़कें। रोग आने पर रिडोमिल गोल्ड (Metalaxyl + Mancozeb) 2.5 ग्राम/लीटर या करजेट 3 ग्राम/लीटर पानी में घोलकर छिड़कें।",
+    "content_kn": "ಟೊಮ್ಯಾಟೊದಲ್ಲಿ ತಡವಾದ ಅಂಗಮಾರಿ ರೋಗದಿಂದ ಎಲೆಗಳ ಮೇಲೆ ಕಂದು ಕಲೆಗಳು ಮತ್ತು ಹಣ್ಣುಗಳು ಕೊಳೆಯುತ್ತವೆ. ನಿಯಂತ್ರಣ: ಮ್ಯಾಂಕೋಜೆಬ್ 2.5 ಗ್ರಾಂ/ಲೀಟರ್ ನೀರಿನಲ್ಲಿ ಸಿಂಪಡಿಸಿ. ರೋಗ ತೀವ್ರವಾಗಿದ್ದರೆ ರಿಡೋಮಿಲ್ ಗೋಲ್ಡ್ 2.5 ಗ್ರಾಂ/ಲೀಟರ್ ನೀರಿನಲ್ಲಿ ಸಿಂಪಡಿಸಿ.",
+    "source": "ICAR-Indian Institute of Horticultural Research (IIHR)"
+  },
+  {
+    "id": "kb_pmfby_crop_insurance",
+    "category": "schemes",
+    "crop": "all",
+    "keywords": ["बीमा", "फसल बीमा", "pmfby", "crop insurance", "ಬೆಳೆ ವಿಮೆ", "ಯೋಜನೆ", "ನಷ್ಟ ಪರಿಹಾರ"],
+    "title": "Pradhan Mantri Fasal Bima Yojana - PMFBY (प्रधानमंत्री फसल बीमा योजना / ಪ್ರಧಾನ ಮಂತ್ರಿ ಫಸಲ್ ಬಿಮಾ)",
+    "content_en": "PMFBY provides comprehensive insurance coverage against non-preventable natural risks (drought, flood, unseasonal rain, pests). Premium paid by farmers is only 2% for Kharif crops, 1.5% for Rabi crops, and 5% for annual commercial/horticultural crops. Claims can be reported within 72 hours of localized calamity on the Crop Insurance App.",
+    "content_hi": "प्रधानमंत्री फसल बीमा योजना (PMFBY) प्राकृतिक आपदाओं (सूखा, बाढ़, ओलावृष्टि, कीट) से फसल क्षति पर सुरक्षा देती है। किसानों के लिए प्रीमियम दर: खरीफ फसल पर मात्र 2%, रबी फसल पर 1.5% और बागवानी फसलों पर 5% है। नुकसान होने पर 72 घंटे के भीतर 'क्रॉप इंश्योरेंस ऐप' या टोल फ्री नंबर 14447 पर सूचना दें।",
+    "content_kn": "ಪ್ರಧಾನ ಮಂತ್ರಿ ಫಸಲ್ ಬಿಮಾ ಯೋಜನೆಯು ನೈಸರ್ಗಿಕ ವಿಕೋಪಗಳಿಂದ ಬೆಳೆ ಹಾನಿಯಾದರೆ ರೈತರಿಗೆ ಪರಿಹಾರ ನೀಡುತ್ತದೆ. ಖಾರೀಫ್ ಬೆಳೆಗೆ 2%, ರಬಿ ಬೆಳೆಗೆ 1.5% ಮತ್ತು ತೋಟಗಾರಿಕಾ ಬೆಳೆಗಳಿಗೆ 5% ಪ್ರೀಮಿಯಂ ಮಾತ್ರ ಪಾವತಿಸಬೇಕು. ಹಾನಿಯಾದ 72 ಗಂಟೆಗಳಲ್ಲಿ ವರದಿ ಮಾಡಬೇಕು.",
+    "source": "Ministry of Agriculture & Farmers Welfare, GoI"
+  }
+]
