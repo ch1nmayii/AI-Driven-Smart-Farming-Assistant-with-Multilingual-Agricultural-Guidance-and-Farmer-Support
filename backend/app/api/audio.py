@@ -1,10 +1,18 @@
-import os
+"""
+Week 1-2: Updated Audio API
+- STT: Uses STTPipeline (Sarvam AI primary → OpenAI Whisper fallback)
+- TTS: Sarvam AI bulbul:v1 with per-language speaker selection
+- Translation: Sarvam AI Translate endpoint
+"""
 import httpx
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException
-from app.models.schemas import AudioSTTResponse
+from fastapi import APIRouter, UploadFile, File, Form
+from app.models.schemas import AudioSTTResponse, TranslationRequest, TranslationResponse
 from app.config import settings
+from app.core.stt_pipeline import run_stt_pipeline
+from app.core.language_pipeline import translate_to_english, translate_from_english
 
 router = APIRouter(prefix="/api/audio", tags=["Audio & Speech"])
+
 
 @router.post("/stt", response_model=AudioSTTResponse)
 async def speech_to_text(
@@ -12,45 +20,24 @@ async def speech_to_text(
     language_code: str = Form("hi-IN")
 ):
     """
-    Transcribes farmer's spoken audio.
-    Leverages Sarvam AI Indic STT API if API key is configured;
-    otherwise provides robust speech endpoint fallback.
+    Speech-to-Text endpoint.
+    Primary: Sarvam AI saarika:v2 (Indic-optimised for Hindi, Kannada agricultural vocabulary)
+    Fallback: OpenAI Whisper-1 (for unsupported languages or when Sarvam AI is unavailable)
     """
-    if settings.SARVAM_API_KEY:
-        try:
-            content = await audio.read()
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                files = {"file": (audio.filename or "recording.wav", content, audio.content_type or "audio/wav")}
-                data = {"language_code": language_code, "model": "saarika:v1"}
-                response = await client.post(
-                    "https://api.sarvam.ai/speech-to-text",
-                    headers={"api-subscription-key": settings.SARVAM_API_KEY},
-                    files=files,
-                    data=data
-                )
-                if response.status_code == 200:
-                    resp_data = response.json()
-                    return AudioSTTResponse(
-                        transcription=resp_data.get("transcript", ""),
-                        detected_language=resp_data.get("language_code", language_code),
-                        confidence=0.96
-                    )
-        except Exception as e:
-            print(f"Sarvam STT error, falling back: {e}")
-
-    # Fallback simulation for offline / test environments
-    lang_short = language_code.split("-")[0] if "-" in language_code else language_code
-    sample_text = {
-        "hi": "गेहूं में पीला रतुआ रोग के लक्षण दिख रहे हैं, क्या उपाय करें?",
-        "kn": "ಗೋಧಿಯಲ್ಲಿ ಹಳದಿ ತುಕ್ಕು ರೋಗದ ಲಕ್ಷಣಗಳು ಕಾಣಿಸುತ್ತಿವೆ, ಪರಿಹಾರವೇನು?",
-        "en": "What is the recommended treatment for yellow rust in wheat?"
-    }.get(lang_short, "गेहूं में पीला रतुआ रोग के लक्षण दिख रहे हैं, क्या उपाय करें?")
-
-    return AudioSTTResponse(
-        transcription=sample_text,
-        detected_language=lang_short,
-        confidence=0.92
+    audio_bytes = await audio.read()
+    result = await run_stt_pipeline(
+        audio_bytes=audio_bytes,
+        filename=audio.filename or "recording.wav",
+        content_type=audio.content_type or "audio/wav",
+        language_code=language_code
     )
+    return AudioSTTResponse(
+        transcription=result["transcription"],
+        detected_language=result["detected_language"],
+        confidence=result["confidence"],
+        stt_source=result["source"]
+    )
+
 
 @router.post("/tts")
 async def text_to_speech(
@@ -58,18 +45,27 @@ async def text_to_speech(
     language_code: str = Form("hi-IN")
 ):
     """
-    Synthesizes Indic speech for farmer readback.
-    Returns audio format or streaming audio.
+    Text-to-Speech endpoint.
+    Primary: Sarvam AI bulbul:v1 with gender/language-specific speaker selection.
+    Fallback: Browser Web Speech Synthesis API instruction.
     """
+    # Select speaker voice per language for natural Indic output
+    speaker_map = {
+        "hi-IN": "meera",   # Female Hindi speaker
+        "kn-IN": "amol",    # Male Kannada speaker
+        "en-IN": "arjun",   # Male English speaker
+    }
+    speaker = speaker_map.get(language_code, "meera")
+
     if settings.SARVAM_API_KEY:
         try:
             async with httpx.AsyncClient(timeout=30.0) as client:
                 payload = {
                     "inputs": [text[:500]],
                     "target_language_code": language_code,
-                    "speaker": "meera",
+                    "speaker": speaker,
                     "pitch": 0,
-                    "pace": 1.0,
+                    "pace": 0.95,       # Slightly slower for rural clarity
                     "loudness": 1.5,
                     "speech_sample_rate": 22050,
                     "enable_preprocessing": True,
@@ -87,13 +83,37 @@ async def text_to_speech(
                     data = response.json()
                     audios = data.get("audios", [])
                     if audios:
-                        return {"audio_base64": audios[0], "format": "wav"}
+                        return {"audio_base64": audios[0], "format": "wav", "source": "sarvam_ai"}
         except Exception as e:
-            print(f"Sarvam TTS error: {e}")
+            print(f"[TTS][Sarvam] Error: {e}")
 
-    # Standard browser-accessible or fallback response
     return {
         "audio_base64": None,
         "format": "browser-speech",
-        "message": "Use Web Speech Synthesis API fallback in browser"
+        "source": "browser_fallback",
+        "message": "Use Web Speech Synthesis API in browser"
     }
+
+
+@router.post("/translate", response_model=TranslationResponse)
+async def translate_text(request: TranslationRequest):
+    """
+    Translation endpoint.
+    Translates text between hi, kn, en using Sarvam AI Translate (mayura:v1).
+    If target is 'en', uses translate_to_english.
+    If source is 'en', uses translate_from_english.
+    """
+    if request.target_language == "en":
+        translated = await translate_to_english(request.text, request.source_language)
+    else:
+        # Translate to target via English as pivot if needed
+        en_text = await translate_to_english(request.text, request.source_language)
+        translated = await translate_from_english(en_text, request.target_language)
+
+    return TranslationResponse(
+        original_text=request.text,
+        translated_text=translated,
+        source_language=request.source_language,
+        target_language=request.target_language,
+        translation_source="sarvam_ai" if settings.SARVAM_API_KEY else "passthrough"
+    )

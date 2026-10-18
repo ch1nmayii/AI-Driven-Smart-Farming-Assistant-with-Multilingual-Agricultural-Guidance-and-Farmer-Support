@@ -6,7 +6,6 @@ from app.core.rag_engine import rag_engine
 
 router = APIRouter(prefix="/api/chat", tags=["Farmer Chat"])
 
-# Global memory log for extension worker monitoring
 CONVERSATION_LOGS = []
 
 @router.post("", response_model=ChatResponse)
@@ -14,10 +13,11 @@ async def process_chat(request: ChatRequest):
     if not request.message or not request.message.strip():
         raise HTTPException(status_code=400, detail="Query message cannot be empty")
 
-    result = rag_engine.process_query(
+    result = await rag_engine.process_query(
         query=request.message,
         language=request.language,
-        location=request.location or "Uttar Pradesh"
+        location=request.location or "Uttar Pradesh",
+        session_id=request.session_id or "farmer-session-default"
     )
 
     log_entry = {
@@ -39,7 +39,9 @@ async def process_chat(request: ChatRequest):
         response_text=result["response_text"],
         language=result["language"],
         intent=result["intent"],
+        intent_confidence=result.get("intent_confidence", 0.92),
         confidence_score=result["confidence_score"],
         flagged_for_review=result["flagged_for_review"],
-        sources=result["sources"]
+        sources=result["sources"],
+        entities=result.get("entities", [])
     )

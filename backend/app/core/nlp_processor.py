@@ -1,63 +1,84 @@
+"""
+Week 1-2: Updated NLP Processor
+Orchestrates: language detection → NER → intent classification → session context
+"""
 import re
-from typing import Tuple, Dict, Any
+from typing import Dict, Any, List, Optional
+from app.core.language_pipeline import detect_language
+from app.core.intent_classifier import intent_classifier
+from app.core.ner_engine import ner_engine
+
 
 class NLPProcessor:
-    def __init__(self):
-        # Unicode ranges: Devanagari 0900-097F, Kannada 0C80-0CFF
-        self.devanagari_regex = re.compile(r'[\u0900-\u097F]')
-        self.kannada_regex = re.compile(r'[\u0C80-\u0CFF]')
+    """
+    Main NLP orchestrator combining:
+    - Language detection (Indic script + langdetect)
+    - Named Entity Recognition (agricultural vocab, Hugging Face supplemented)
+    - Intent classification (keyword scoring + HuggingFace zero-shot)
+    """
 
-    def detect_language(self, text: str) -> str:
-        """Detect language based on Indic script characters, falling back to English."""
-        if not text:
-            return "en"
-        
-        devanagari_chars = len(self.devanagari_regex.findall(text))
-        kannada_chars = len(self.kannada_regex.findall(text))
-        
-        if devanagari_chars > 0 and devanagari_chars >= kannada_chars:
-            return "hi"
-        elif kannada_chars > 0:
-            return "kn"
-        return "en"
-
-    def classify_intent(self, text: str) -> str:
+    def process_query(self, text: str, preferred_language: Optional[str] = None) -> Dict[str, Any]:
         """
-        Classifies intent into:
-        - pest_disease: Crop disease, pest remedies, sprays
-        - scheme_subsidy: PM-Kisan, PMFBY, government aid
-        - mandi_prices: Current market rates, APMC prices
-        - soil_fertilizer: Urea, DAP, soil tests
-        - weather_forecast: Rainfall, temperature advisories
-        - general_advisory: General farming questions
+        Full NLP processing pipeline for a farmer query.
+
+        Steps:
+          1. Detect language (Unicode script analysis + statistical fallback)
+          2. Extract named entities (CROP, PEST, DISEASE, CHEMICAL, SCHEME, QUANTITY, LOCATION)
+          3. Classify intent with confidence scoring
+
+        Returns:
+          {
+            language: str,          # detected or preferred language code
+            language_confidence: float,
+            intent: str,            # classified intent
+            intent_confidence: float,
+            entities: list,         # NER results
+            crop_context: str|None, # primary crop from entities
+            pest_disease: str|None, # primary pest/disease
+          }
         """
-        text_lower = text.lower()
-        
-        # Pests & Diseases
-        pest_keywords = ["कीड़ा", "रतुआ", "रोग", "कीट", "दवा", "छिड़काव", "pest", "disease", "rust", "blight", "spray", "ಹುಳು", "ರೋಗ", "ಔಷಧಿ"]
-        if any(kw in text_lower for kw in pest_keywords):
-            return "pest_disease"
+        if not text or not text.strip():
+            return self._empty_result(preferred_language or "hi")
 
-        # Government Schemes
-        scheme_keywords = ["योजना", "सब्सिडी", "पीएम किसान", "सम्मान निधि", "बीमा", "scheme", "subsidy", "pm kisan", "pmfby", "ಯೋಜನೆ", "ಸಬ್ಸಿಡಿ", "ವಿಮೆ"]
-        if any(kw in text_lower for kw in scheme_keywords):
-            return "scheme_subsidy"
+        # Step 1: Language Detection
+        lang_result = detect_language(text)
+        language = preferred_language if preferred_language else lang_result["language"]
+        language_confidence = lang_result["confidence"]
 
-        # Mandi / Market Prices
-        mandi_keywords = ["मंडी", "भाव", "दाम", "कीमत", "रेट", "mandi", "market", "price", "rate", "ಮಾರುಕಟ್ಟೆ", "ಬೆಲೆ", "ದರ"]
-        if any(kw in text_lower for kw in mandi_keywords):
-            return "mandi_prices"
+        # Step 2: Named Entity Recognition
+        entities = ner_engine.extract_entities(text)
+        crop_context = ner_engine.get_crop_context(entities)
+        pest_disease = ner_engine.get_primary_pest_or_disease(entities)
 
-        # Soil & Fertilizer
-        soil_keywords = ["खाद", "यूरिया", "डीएपी", "उर्वरक", "मिट्टी", "fertilizer", "urea", "dap", "soil", "NPK", "ಗೊಬ್ಬರ", "ಯೂರಿಯಾ", "ಮಣ್ಣು"]
-        if any(kw in text_lower for kw in soil_keywords):
-            return "soil_fertilizer"
+        # Step 3: Intent Classification
+        intent_result = intent_classifier.classify(text)
+        intent = intent_result["intent"]
+        intent_confidence = intent_result["confidence"]
 
-        # Weather
-        weather_keywords = ["मौसम", "बारिश", "तापमान", "पानी", "weather", "rain", "temperature", "ಹವಾಮಾನ", "ಮಳೆ"]
-        if any(kw in text_lower for kw in weather_keywords):
-            return "weather_forecast"
+        return {
+            "language": language,
+            "language_confidence": language_confidence,
+            "intent": intent,
+            "intent_confidence": intent_confidence,
+            "intent_scores": intent_result.get("scores", {}),
+            "intent_method": intent_result.get("method", "keyword"),
+            "entities": entities,
+            "crop_context": crop_context,
+            "pest_disease": pest_disease,
+        }
 
-        return "general_advisory"
+    def _empty_result(self, language: str) -> Dict[str, Any]:
+        return {
+            "language": language,
+            "language_confidence": 0.5,
+            "intent": "general_advisory",
+            "intent_confidence": 0.45,
+            "intent_scores": {},
+            "intent_method": "default",
+            "entities": [],
+            "crop_context": None,
+            "pest_disease": None,
+        }
+
 
 nlp_processor = NLPProcessor()
